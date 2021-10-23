@@ -12,11 +12,14 @@ class Question:
         self.alternatives = alternatives
         self.correct = correct + 1
 
+    def correct_answer_txt(self):
+        print(f'The correct answer is: {self.alternatives[self.correct-1]}')
+
     def check(self, answer):
         if answer == self.correct:
             print('Correct answer!\n')
         else:
-            print('Wrong answer, you moron.\n')
+            print('Wrong answer.\n')
 
     def shuffle_alt(self):
         answer = self.alternatives[self.correct - 1]
@@ -27,14 +30,12 @@ class Question:
         self.shuffle_alt()
         return f'{self.question}\n' + f'Alternatives:\n1:\t{self.alternatives[0]}\n2:\t{self.alternatives[1]}\n3:\t{self.alternatives[2]}\n4:\t{self.alternatives[3]}'
 
-'''q = 'What is the Kings name?'
-alt = ['Nils', 'Harald', 'Petter', 'Carl']
-cor = 2
 
-question1 = Question(q, alt, cor)
-print(question1)
-answer = int(input('Input answer alternative: '))
-question1.check(answer)'''
+class Player:
+    def __init__(self, name: str):
+        self.name = name
+        self.score = 0
+
 
 
 
