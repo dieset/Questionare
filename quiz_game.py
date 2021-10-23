@@ -28,7 +28,9 @@ class Question:
 
     def __str__(self):
         self.shuffle_alt()
-        return f'{self.question}\n' + f'Alternatives:\n1:\t{self.alternatives[0]}\n2:\t{self.alternatives[1]}\n3:\t{self.alternatives[2]}\n4:\t{self.alternatives[3]}'
+        part1 = f'{self.question}\nAlternatives:\n'
+        part2 = [f'{index+1}:\t{alt}\n' for index, alt in enumerate(self.alternatives)]
+        return part1 + ''.join(part2)
 
 
 class Player:
