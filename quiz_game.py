@@ -35,12 +35,19 @@ class Player:
     def __init__(self, name: str):
         self.name = name
         self.score = 0
+        self.answer = None
 
+    def give_answer(self):
+        self.answer = int(input(f'{self.name}, choose your answer: '))
+        return (self.answer)
 
-
+    def check_correct(self, question):
+        if question.correct == self.answer:
+            self.score += 1
 
 if __name__ == '__main__':
     questions = list()
+    players = list()
 
     with open('sporsmaalsfil.txt', 'r', encoding='utf8') as file:
         for line in file:
@@ -49,10 +56,30 @@ if __name__ == '__main__':
             alts = alts.split(', ')
             questions.append(Question(list[0], alts, int(list[1])))
 
+    print('Welcome to the Questionare!\nWho is playing?')
+
+    enter_name = True
+    while enter_name:
+        player = input('Input player name: ')
+        if player != '':
+            players.append(Player(player))
+        else:
+            enter_name = False
+
     for question in questions:
         try:
             print(question)
-            answer = int(input('Input answer alternative: '))
-            question.check(answer)
+            for player in players:
+                player.give_answer()
+                player.check_correct(question)
+            for player in players:
+                question.check(player.answer)
+            question.correct_answer_txt()
+            input('Press enter to continue:')
+            print()
         except IndexError:
             pass
+
+
+    for player in players:
+        print(f'Final score for {player.name} is {player.score}')
