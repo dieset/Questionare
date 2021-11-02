@@ -69,19 +69,15 @@ if __name__ == '__main__':
             enter_name = False
 
     for question in questions:
-        try:
-            print(question)
-            for player in players:
-                player.give_answer()
-                player.check_correct(question)
-            for player in players:
-                question.check(player.answer)
-            question.correct_answer_txt()
-            input('Press enter to continue:')
-            print()
-        except IndexError:
-            pass
-
+        print(question)
+        for player in players:
+            player.give_answer()
+            player.check_correct(question)
+        for player in players:
+            question.check(player.answer)
+        question.correct_answer_txt()
+        input('Press enter to continue:')
+        print()
 
     for player in players:
         print(f'Final score for {player.name} is {player.score}')
