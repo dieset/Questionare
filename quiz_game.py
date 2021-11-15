@@ -84,5 +84,7 @@ if __name__ == '__main__':
         input('Press enter to continue:')
         print()
 
+    players.sort(key=lambda x: x.score, reverse=True)
+
     for player in players:
         print(f'Final score for {player.name} is {player.score}')
