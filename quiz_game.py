@@ -1,8 +1,9 @@
 #! python3
+'''
+Questionare game developed as an assignement in DAT120, a university course at UiS
 
-'''Questionare game developed as an assignement in DAT120, a university course at UiS
-
-Author: Jacob Dieset'''
+Author: Jacob Dieset
+'''
 
 import random
 
@@ -14,12 +15,15 @@ class Question:
 
     def correct_answer_txt(self):
         print(f'The correct answer is: {self.alternatives[self.correct-1]}')
+        return self.alternatives[self.correct-1]
 
     def check(self, answer):
         if answer == self.correct:
             print('Correct answer!\n')
+            return True
         else:
             print('Wrong answer.\n')
+            return False
 
     def shuffle_alt(self):
         answer = self.alternatives[self.correct - 1]
@@ -47,6 +51,7 @@ class Player:
         if question.correct == self.answer:
             self.score += 1
 
+
 if __name__ == '__main__':
     questions = list()
     players = list()
@@ -60,13 +65,13 @@ if __name__ == '__main__':
 
     print('Welcome to the Questionare!\nWho is playing?')
 
-    enter_name = True
-    while enter_name:
+    number_of_players = int(input('Input number of players: '))
+    for i in range(number_of_players):
         player = input('Input player name: ')
         if player != '':
             players.append(Player(player))
         else:
-            enter_name = False
+            break
 
     for question in questions:
         print(question)
