@@ -11,7 +11,7 @@ class TestQuiz(unittest.TestCase):
         self.assertFalse(q1.check(2))
 
     def test_correct_txt(self):
-        q2 = Question('Hjernen til en datamaskin kalles?', ['RAM', 'CPU', 'Data', 'Harddisk'], 1)
+        q2 = Question('''"Hjernen" til en datamaskin kalles?''', ['RAM', 'CPU', 'Data', 'Harddisk'], 1)
         self.assertEqual(q2.correct_answer_txt(), q2.alternatives[q2.correct-1])
         self.assertNotEqual(q2.correct_answer_txt(), q2.alternatives[0])
         self.assertNotEqual(q2.correct_answer_txt(), q2.alternatives[2])

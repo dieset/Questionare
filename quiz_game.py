@@ -17,7 +17,7 @@ class Question:
         print(f'The correct answer is: {self.alternatives[self.correct-1]}')
         return self.alternatives[self.correct-1]
 
-    def check(self, answer):
+    def check(self, answer: int):
         if answer == self.correct:
             print('Correct answer!\n')
             return True
@@ -30,7 +30,7 @@ class Question:
         random.shuffle(self.alternatives)
         self.correct = self.alternatives.index(answer) + 1
 
-    def __str__(self):
+    def __str__(self) -> str:
         self.shuffle_alt()
         part1 = f'{self.question}\nAlternatives:\n'
         part2 = [f'{index+1}:\t{alt}\n' for index, alt in enumerate(self.alternatives)]
@@ -43,48 +43,58 @@ class Player:
         self.score = 0
         self.answer = None
 
-    def give_answer(self):
+    def give_answer(self) -> int:
         self.answer = int(input(f'{self.name}, choose your answer: '))
         return (self.answer)
 
-    def check_correct(self, question):
+    def check_correct(self, question: Question):
         if question.correct == self.answer:
             self.score += 1
 
+def create_player_list(empty_list: list):
+    number_of_players = int(input('Input number of players: '))
+    for i in range(number_of_players):
+        player = input('Input player name: ')
+        if player != '':
+            empty_list.append(Player(player))
+        else:
+            break
 
 if __name__ == '__main__':
-    questions = list()
-    players = list()
+    question_list = list()
+    player_list = list()
 
     with open('sporsmaalsfil.txt', 'r', encoding='utf8') as file:
         for line in file:
             list = line.split(':')
             alts = list[2].strip('\n []')
             alts = alts.split(', ')
-            questions.append(Question(list[0], alts, int(list[1])))
+            question_list.append(Question(list[0], alts, int(list[1])))
 
     print('Welcome to the Questionare!\nWho is playing?')
 
-    number_of_players = int(input('Input number of players: '))
+    '''number_of_players = int(input('Input number of players: '))
     for i in range(number_of_players):
         player = input('Input player name: ')
         if player != '':
             players.append(Player(player))
         else:
-            break
+            break'''
 
-    for question in questions:
+    create_player_list(player_list)
+
+    for question in question_list:
         print(question)
-        for player in players:
+        for player in player_list:
             player.give_answer()
             player.check_correct(question)
-        for player in players:
+        for player in player_list:
             question.check(player.answer)
         question.correct_answer_txt()
-        input('Press enter to continue:')
+        input('Press enter to continue...')
         print()
 
-    players.sort(key=lambda x: x.score, reverse=True)
+    player_list.sort(key=lambda x: x.score, reverse=True)
 
-    for player in players:
+    for player in player_list:
         print(f'Final score for {player.name} is {player.score}')
